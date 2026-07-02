@@ -1,13 +1,22 @@
 import { useEffect, useRef, useState } from "react"
+import { Link } from "react-router-dom"
 import { Button } from "@/components/ui/button"
-import { PawPrint, Trees, Satellite, Menu, X, Youtube, Instagram, ChevronDown } from "lucide-react"
+import { Menu, X, Youtube, Instagram, ChevronDown } from "lucide-react"
+import Icon from "@/components/ui/icon"
 import { AnimatedText } from "@/components/animated-text"
-import { CustomDroneIcon } from "@/components/drone-icon"
 import { WorldMap } from "@/components/world-map"
 import { experiences } from "@/lib/experience-data"
 import type { Experience } from "@/lib/experience-data"
 
-function AnimatedCounter({ value, suffix = "" }: { value: string; suffix?: string }) {
+function formatEventDate(start: string, end: string) {
+  const options: Intl.DateTimeFormatOptions = { day: "numeric", month: "long" }
+  const startDate = new Date(start).toLocaleDateString("ru-RU", options)
+  if (start === end) return startDate
+  const endDate = new Date(end).toLocaleDateString("ru-RU", options)
+  return `${startDate} — ${endDate}`
+}
+
+function AnimatedCounter({ value }: { value: string; suffix?: string }) {
   const [displayValue, setDisplayValue] = useState("0")
   const ref = useRef<HTMLDivElement>(null)
 
@@ -48,7 +57,7 @@ function AnimatedCounter({ value, suffix = "" }: { value: string; suffix?: strin
   )
 }
 
-export default function VerdantPage() {
+export default function GlamdatePage() {
   const [isLoaded, setIsLoaded] = useState(false)
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [scrollY, setScrollY] = useState(0)
@@ -64,7 +73,7 @@ export default function VerdantPage() {
   const heroRef = useRef<HTMLDivElement>(null)
   const observerRef = useRef<IntersectionObserver | null>(null)
 
-  const dynamicWords = ["леса", "природу", "животных", "экосистемы", "биоразнообразие", "дикую жизнь", "среду обитания"]
+  const dynamicWords = ["мастерство", "технику", "стиль", "экспертность", "насмотренность", "доход", "клиентов"]
 
   useEffect(() => {
     const wordInterval = setInterval(() => {
@@ -159,7 +168,7 @@ export default function VerdantPage() {
               onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
               className="text-lg md:text-xl font-semibold font-mono hover:text-pink-400 transition-colors duration-300"
             >
-              VERDANT
+              GLAMDATE
             </button>
 
             <nav className="hidden md:flex items-center gap-8">
@@ -167,19 +176,19 @@ export default function VerdantPage() {
                 onClick={() => scrollToSection("metrics")}
                 className="text-sm text-[#A7ABB3] hover:text-[#F2F3F5] transition-colors duration-300"
               >
-                Результаты
+                О нас
               </button>
               <button
                 onClick={() => scrollToSection("map")}
                 className="text-sm text-[#A7ABB3] hover:text-[#F2F3F5] transition-colors duration-300"
               >
-                Проекты
+                Афиша
               </button>
               <button
                 onClick={() => scrollToSection("narrative")}
                 className="text-sm text-[#A7ABB3] hover:text-[#F2F3F5] transition-colors duration-300"
               >
-                Технологии
+                Форматы
               </button>
               <button
                 onClick={() => scrollToSection("faq")}
@@ -191,7 +200,7 @@ export default function VerdantPage() {
                 onClick={() => scrollToSection("cta")}
                 className="text-sm text-[#A7ABB3] hover:text-[#F2F3F5] transition-colors duration-300"
               >
-                Участвовать
+                Записаться
               </button>
             </nav>
 
@@ -213,19 +222,19 @@ export default function VerdantPage() {
               onClick={() => scrollToSection("metrics")}
               className="font-serif text-5xl md:text-7xl font-light text-[#F2F3F5] hover:text-pink-400 transition-colors duration-300"
             >
-              Результаты
+              О нас
             </button>
             <button
               onClick={() => scrollToSection("map")}
               className="font-serif text-5xl md:text-7xl font-light text-[#F2F3F5] hover:text-pink-400 transition-colors duration-300"
             >
-              Проекты
+              Афиша
             </button>
             <button
               onClick={() => scrollToSection("narrative")}
               className="font-serif text-5xl md:text-7xl font-light text-[#F2F3F5] hover:text-pink-400 transition-colors duration-300"
             >
-              Технологии
+              Форматы
             </button>
             <button
               onClick={() => scrollToSection("faq")}
@@ -237,7 +246,7 @@ export default function VerdantPage() {
               onClick={() => scrollToSection("cta")}
               className="font-serif text-5xl md:text-7xl font-light text-[#F2F3F5] hover:text-pink-400 transition-colors duration-300"
             >
-              Участвовать
+              Записаться
             </button>
           </div>
         </div>
@@ -278,21 +287,24 @@ export default function VerdantPage() {
                   wordFade ? "opacity-100 blur-0" : "opacity-0 blur-lg"
                 }`}
               >
-                Защитим <AnimatedText key={dynamicWordIndex} text={dynamicWords[dynamicWordIndex]} delay={0} />
+                Прокачай <AnimatedText key={dynamicWordIndex} text={dynamicWords[dynamicWordIndex]} delay={0} />
               </span>
               <span className="block stagger-reveal text-7xl font-light md:text-8xl" style={{ animationDelay: "90ms" }}>
-                в масштабе
+                на бьюти-событиях
               </span>
             </h1>
             <p
               className="text-[#A7ABB3] text-base md:text-lg max-w-[520px] mx-auto mb-8 leading-relaxed stagger-reveal text-white"
               style={{ animationDelay: "180ms" }}
             >
-              Мониторинг лесов в реальном времени с помощью ИИ. Обнаружение угроз, отслеживание биоразнообразия, сохранение природы для будущих поколений.
+              Афиша мастер-классов, воркшопов и конференций для бьюти-мастеров. Брови, ногти, макияж, волосы, косметология — выбирай событие и открывай подробности.
             </p>
             <div className="stagger-reveal" style={{ animationDelay: "270ms" }}>
-              <Button className="glass-button px-8 py-6 text-base rounded-full bg-white/5 border border-white/10 hover:bg-white/10 hover:border-white/20 transition-all duration-300 text-white">
-                Начать защиту
+              <Button
+                onClick={() => scrollToSection("map")}
+                className="glass-button px-8 py-6 text-base rounded-full bg-white/5 border border-white/10 hover:bg-white/10 hover:border-white/20 transition-all duration-300 text-white"
+              >
+                Смотреть афишу
               </Button>
             </div>
           </div>
@@ -309,7 +321,7 @@ export default function VerdantPage() {
               >
                 <img
                   src="/dashboard-screenshot.png"
-                  alt="Панель мониторинга VERDANT"
+                  alt="Афиша бьюти-мероприятий GLAMDATE"
                   className="object-cover dashboard-image w-full h-auto"
                 />
               </div>
@@ -321,7 +333,7 @@ export default function VerdantPage() {
       <section className="relative py-12 border-y border-white/5 bg-[#0B0C0F] overflow-hidden md:py-8 md:pt-8 md:pb-4">
         <div className="w-full">
           <p className="text-center text-xs md:text-sm uppercase tracking-[0.2em] text-[#A7ABB3] mb-8">
-            Нам доверяют ведущие природоохранные организации
+            Нам доверяют ведущие бьюти-школы и бренды
           </p>
           <div className="logo-marquee">
             <div className="logo-marquee-content">
@@ -346,7 +358,7 @@ export default function VerdantPage() {
                 <div key={i} className="px-8 md:px-12 flex items-center justify-center flex-shrink-0">
                   <img
                     src={logo || "/placeholder.svg"}
-                    alt={`Логотип партнера ${i + 1}`}
+                    alt={`Логотип партнёра ${i + 1}`}
                     className="h-32 md:h-24 w-auto object-contain opacity-60 hover:opacity-60 transition-all duration-300 brightness-0 invert"
                   />
                 </div>
@@ -359,7 +371,7 @@ export default function VerdantPage() {
       <section id="metrics" className="relative py-20 md:py-32 px-4 animate-on-scroll md:pt-24 md:pb-20">
         <div className="max-w-[1120px] w-full mx-auto">
           <h2 className="font-serif text-[32px] leading-[1.15] md:text-[48px] md:leading-[1.1] font-medium mb-6 md:mb-8 text-center text-balance">
-            Природоохранный{" "}
+            Бьюти-события{" "}
             <span
               className="inline-block"
               style={{
@@ -369,21 +381,21 @@ export default function VerdantPage() {
                 backgroundClip: "text",
               }}
             >
-              результат
+              вживую
             </span>{" "}
-            в масштабе
+            и онлайн
           </h2>
 
           <p className="text-[#A7ABB3] text-sm md:text-base mb-12 md:mb-16 text-center max-w-[600px] mx-auto leading-relaxed">
-            Нам доверяют природоохранные организации по всему миру. Работаем на технологиях, созданных для природы.
+            Мастера индустрии красоты выбирают нашу афишу, чтобы расти в профессии и находить лучшие события рядом.
           </p>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 max-w-[800px] mx-auto">
             {[
-              { label: "ЗАЩИЩЕНО ЛЕСОВ", value: "2.4M", desc: "гектаров по всему миру", color: "pink" },
-              { label: "ВИДОВ НА МОНИТОРИНГЕ", value: "12K+", desc: "диких животных", color: "purple" },
-              { label: "ПОГЛОЩЕНО УГЛЕРОДА", value: "18M", desc: "тонн CO2", color: "pink" },
-              { label: "ТОЧНОСТЬ ДЕТЕКЦИИ", value: "99.4%", desc: "обнаружения угроз", color: "purple" },
+              { label: "МЕРОПРИЯТИЙ В ГОД", value: "240", desc: "по всей стране", color: "pink" },
+              { label: "МАСТЕРОВ УЧАСТВОВАЛО", value: "18K+", desc: "бьюти-специалистов", color: "purple" },
+              { label: "ГОРОДОВ", value: "35", desc: "офлайн-площадок", color: "pink" },
+              { label: "ДОВОЛЬНЫХ УЧАСТНИКОВ", value: "98%", desc: "рекомендуют нас", color: "purple" },
             ].map((metric, i) => (
               <div
                 key={i}
@@ -411,21 +423,75 @@ export default function VerdantPage() {
         <div className="text-center mb-12 md:mb-16 px-4">
           <div className="text-[10px] md:text-xs uppercase tracking-[0.15em] text-[#A7ABB3] mb-6 flex items-center justify-center gap-2">
             <span className="w-1.5 h-1.5 rounded-full bg-pink-400 animate-pulse" />
-            ГЛОБАЛЬНЫЙ ОХВАТ
+            АФИША СОБЫТИЙ
           </div>
           <h2 className="font-serif text-[32px] leading-[1.15] md:text-[48px] md:leading-[1.1] font-medium mb-6 text-balance">
-            Проекты по всему миру
+            Ближайшие мероприятия
           </h2>
           <p className="text-[#A7ABB3] text-sm md:text-base max-w-[600px] mx-auto leading-relaxed">
-            Мониторинг и защита критически важных лесных экосистем на пяти континентах
+            Выбирайте событие и открывайте страницу с программой, спикерами и бронированием
           </p>
         </div>
 
-        <WorldMap
-          experiences={experiences}
-          selectedExperience={selectedExperience}
-          onSelectExperience={setSelectedExperience}
-        />
+        <div className="max-w-[1120px] w-full mx-auto px-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {experiences.map((event) => (
+              <Link
+                key={event.id}
+                to={`/event/${event.slug}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group flex flex-col p-6 border border-white/10 rounded-2xl backdrop-blur-md bg-white/[0.02] hover:bg-white/[0.05] hover:border-white/20 transition-all duration-300"
+              >
+                <div className="flex items-center justify-between mb-4">
+                  <span className="inline-flex items-center gap-2 text-[10px] uppercase tracking-[0.15em] text-[#A7ABB3]">
+                    <span
+                      className={`w-1.5 h-1.5 rounded-full ${
+                        event.color === "pink"
+                          ? "bg-pink-400"
+                          : event.color === "yellow"
+                            ? "bg-yellow-400"
+                            : event.color === "green"
+                              ? "bg-green-400"
+                              : "bg-blue-400"
+                      }`}
+                    />
+                    {event.category}
+                  </span>
+                  <Icon
+                    name="ArrowUpRight"
+                    size={18}
+                    className="text-[#A7ABB3] group-hover:text-[#F2F3F5] transition-colors"
+                  />
+                </div>
+                <h3 className="font-serif text-xl md:text-2xl font-medium mb-3 leading-tight">{event.title}</h3>
+                <p className="text-sm text-[#A7ABB3] leading-relaxed mb-6 flex-1">{event.description}</p>
+                <div className="space-y-2 text-sm">
+                  <div className="flex items-center gap-2 text-[#A7ABB3]">
+                    <Icon name="Calendar" size={15} className="text-pink-400" />
+                    {formatEventDate(event.startDate, event.endDate)}
+                  </div>
+                  <div className="flex items-center gap-2 text-[#A7ABB3]">
+                    <Icon name="MapPin" size={15} className="text-pink-400" />
+                    {event.location.city}
+                  </div>
+                </div>
+                <div className="flex items-center justify-between mt-6 pt-4 border-t border-white/10">
+                  <span className="font-medium text-[#F2F3F5]">{event.price}</span>
+                  <span className="text-sm text-pink-400 group-hover:text-pink-300 transition-colors">Подробнее →</span>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
+
+        <div className="mt-16 opacity-40 pointer-events-none">
+          <WorldMap
+            experiences={experiences}
+            selectedExperience={selectedExperience}
+            onSelectExperience={setSelectedExperience}
+          />
+        </div>
       </section>
 
       <section id="narrative" className="relative py-20 md:py-32 px-4 animate-on-scroll">
@@ -434,10 +500,10 @@ export default function VerdantPage() {
             <div className="max-w-[720px]">
               <div className="text-[10px] md:text-xs uppercase tracking-[0.15em] text-[#A7ABB3] mb-6 flex items-center gap-2">
                 <span className="w-1.5 h-1.5 rounded-full bg-pink-400 animate-pulse" />
-                ТЕХНОЛОГИИ СОХРАНЕНИЯ
+                ФОРМАТЫ СОБЫТИЙ
               </div>
               <h2 className="font-serif text-[36px] leading-[1.15] md:text-[56px] md:leading-[1.1] font-medium mb-8 text-balance">
-                Каждая экосистема{" "}
+                Каждый формат{" "}
                 <span
                   className="inline-block"
                   style={{
@@ -447,11 +513,11 @@ export default function VerdantPage() {
                     backgroundClip: "text",
                   }}
                 >
-                  важна
+                  под задачу
                 </span>
               </h2>
               <p className="text-[#A7ABB3] text-base md:text-lg leading-relaxed mb-12">
-                Наши спутниковые и ИИ-технологии отслеживают биоразнообразие, выявляют незаконные вырубки, анализируют паттерны обезлесения и оповещают команды в реальном времени. Сохранение со скоростью, которую требует природа.
+                Мастер-классы с моделями, большие конференции, онлайн-воркшопы с обратной связью и интенсивы на несколько дней. Выбирайте формат под свой уровень и цель — от первого навыка до продвинутых техник.
               </p>
 
               <div className="md:hidden mb-8">
@@ -465,7 +531,7 @@ export default function VerdantPage() {
                         "/deforestation-detect.png",
                       ][selectedFeature] || "/placeholder.svg"
                     }
-                    alt="Превью функции"
+                    alt="Превью формата"
                     className={`w-full h-full object-cover rounded-[20px] transition-opacity duration-300 ${
                       imageFade ? "opacity-100" : "opacity-0"
                     }`}
@@ -476,27 +542,27 @@ export default function VerdantPage() {
               <div className="space-y-6">
                 {[
                   {
-                    title: "Дроны-разведчики",
-                    desc: "Аэросъемка для учета дикой природы и видового разнообразия",
-                    icon: CustomDroneIcon,
+                    title: "Мастер-классы с моделями",
+                    desc: "Живая практика на настоящих клиентах под контролем наставника",
+                    icon: "Sparkles",
                     image: "/drone.png",
                   },
                   {
-                    title: "Мониторинг 24/7",
-                    desc: "Круглосуточное спутниковое наблюдение с мгновенными оповещениями",
-                    icon: Satellite,
+                    title: "Конференции и форумы",
+                    desc: "Десятки спикеров, тренды сезона и нетворкинг с коллегами",
+                    icon: "Users",
                     image: "/real-time-satellite.png",
                   },
                   {
-                    title: "Учет биоразнообразия",
-                    desc: "Картирование и мониторинг популяций животных по регионам",
-                    icon: PawPrint,
+                    title: "Онлайн-воркшопы",
+                    desc: "Обучение из любой точки с обратной связью и записью навсегда",
+                    icon: "Video",
                     image: "/biodiversity-tracking.png",
                   },
                   {
-                    title: "Защита от вырубки",
-                    desc: "Обнаружение угроз до их эскалации",
-                    icon: Trees,
+                    title: "Интенсивы",
+                    desc: "Несколько дней глубокой практики и сертификат по итогу",
+                    icon: "GraduationCap",
                     image: "/deforestation-detect.png",
                   },
                 ].map((feature, i) => (
@@ -514,9 +580,10 @@ export default function VerdantPage() {
                       selectedFeature === i ? "border border-white/20" : "border border-white/10"
                     }`}
                   >
-                    <feature.icon
+                    <Icon
+                      name={feature.icon}
                       className={`w-6 h-6 flex-shrink-0 mt-1 transition-colors ${
-                        selectedFeature === i ? "text-green-400" : "text-green-500/60"
+                        selectedFeature === i ? "text-pink-400" : "text-pink-500/60"
                       }`}
                     />
                     <div className="flex-1">
@@ -537,19 +604,19 @@ export default function VerdantPage() {
               <div className="relative w-full h-full min-h-[500px]">
                 {[
                   {
-                    title: "Дроны-разведчики",
+                    title: "Мастер-классы с моделями",
                     image: "/drone.png",
                   },
                   {
-                    title: "Мониторинг 24/7",
+                    title: "Конференции и форумы",
                     image: "/real-time-satellite.png",
                   },
                   {
-                    title: "Учет биоразнообразия",
+                    title: "Онлайн-воркшопы",
                     image: "/biodiversity-tracking.png",
                   },
                   {
-                    title: "Защита от вырубки",
+                    title: "Интенсивы",
                     image: "/deforestation-detect.png",
                   },
                 ].map((feature, i) => {
@@ -603,41 +670,41 @@ export default function VerdantPage() {
               ?
             </h2>
             <p className="text-[#A7ABB3] text-sm md:text-base max-w-[600px] mx-auto leading-relaxed">
-              Все, что нужно знать о VERDANT и нашей платформе для экологического мониторинга.
+              Всё, что нужно знать о нашей афише бьюти-мероприятий и участии в них.
             </p>
           </div>
 
           <div className="space-y-4">
             {[
               {
-                question: "Как работает спутниковый мониторинг VERDANT?",
+                question: "Как записаться на мероприятие?",
                 answer:
-                  "Наша платформа использует сеть спутников в сочетании с ИИ-алгоритмами для анализа лесного покрова в реальном времени. Мы обнаруживаем изменения площадью от 0,5 гектара в течение 24 часов, что позволяет оперативно реагировать на угрозы: незаконные вырубки или лесные пожары.",
+                  "Откройте страницу интересующего события из афиши — она откроется в отдельной вкладке. Там вы увидите полную программу, спикеров, дату и место, а также кнопку бронирования. Нажмите «Забронировать место», чтобы закрепить участие.",
               },
               {
-                question: "Какие регионы охватывает VERDANT?",
+                question: "Нужен ли опыт, чтобы участвовать?",
                 answer:
-                  "VERDANT сейчас ведет мониторинг более 2,4 миллиона гектаров на пяти континентах: тропические леса Амазонии, бассейн Конго, леса Борнео, сибирская тайга и тихоокеанский северо-запад Америки. Мы постоянно расширяем охват для защиты новых экосистем.",
+                  "Зависит от формата. Есть события для начинающих мастеров, где всё разбирается с нуля, и продвинутые интенсивы для практикующих специалистов. Уровень всегда указан в описании конкретного мероприятия.",
               },
               {
-                question: "Насколько точна система обнаружения угроз?",
+                question: "Выдаёте ли вы сертификаты?",
                 answer:
-                  "Наша система обнаружения угроз на базе ИИ достигает точности 99,4%. Мы используем модели машинного обучения, обученные на миллионах спутниковых снимков, чтобы отличать естественные изменения от антропогенного обезлесения или незаконной деятельности.",
+                  "На большинстве мастер-классов и интенсивов участники получают сертификат по итогу. Наличие сертификата указано в программе события на его странице.",
               },
               {
-                question: "Можно ли интегрировать VERDANT с существующими системами?",
+                question: "Можно ли участвовать онлайн?",
                 answer:
-                  "Да, VERDANT предоставляет полноценный API для интеграции с существующими системами управления природоохранной деятельностью, ГИС-платформами и системами оповещения. Наша документация содержит подробные руководства по внедрению.",
+                  "Да, часть событий проходит в онлайн-формате с обратной связью от эксперта. Запись остаётся у вас навсегда, поэтому можно возвращаться к материалу в удобное время.",
               },
               {
-                question: "Какова модель ценообразования VERDANT?",
+                question: "Что если я не смогу прийти?",
                 answer:
-                  "Мы предлагаем многоуровневое ценообразование в зависимости от площади мониторинга и набора функций. Некоммерческие природоохранные организации могут претендовать на льготные тарифы или гранты. Свяжитесь с нами для расчета индивидуального предложения.",
+                  "Свяжитесь с нами заранее — в зависимости от условий события можно перенести участие на другую дату или получить запись, если формат это предполагает.",
               },
               {
-                question: "Как я могу помочь в сохранении лесов через VERDANT?",
+                question: "Как разместить своё мероприятие на афише?",
                 answer:
-                  "Есть несколько способов: пожертвование на мониторинг незащищенных территорий, волонтерство в командах наземной верификации или корпоративное партнерство. Каждый вклад помогает защищать критически важные экосистемы.",
+                  "Если вы школа, бренд или мастер и хотите анонсировать событие, напишите нам — мы добавим его в афишу с отдельной страницей, программой и формой записи.",
               },
             ].map((faq, i) => (
               <div
@@ -682,18 +749,21 @@ export default function VerdantPage() {
         <div className="max-w-[800px] w-full mx-auto text-center relative z-10">
           <div className="inline-flex items-center gap-2 glass-pill px-4 py-2 rounded-full mb-8 text-xs md:text-sm text-[#A7ABB3]">
             <span className="w-1.5 h-1.5 rounded-full bg-pink-400 animate-pulse" />
-            Спасем планету
+            Растите в профессии
           </div>
 
           <h2 className="font-serif text-[40px] leading-[1.15] md:text-[64px] md:leading-[1.1] font-medium mb-6 text-balance">
-            Присоединяйтесь к глобальному движению
+            Найдите своё бьюти-событие
           </h2>
           <p className="text-[#A7ABB3] text-base md:text-lg mb-10 leading-relaxed max-w-[560px] mx-auto">
-            Вместе мы строим устойчивое будущее. Начните защищать леса уже сегодня.
+            Новые техники, знакомства и вдохновение ждут вас. Выбирайте мероприятие и записывайтесь уже сегодня.
           </p>
 
-          <Button className="glass-button text-base rounded-full bg-white/5 border border-white/20 hover:bg-white/15 hover:border-white/30 transition-all duration-300 text-white px-8 py-6 md:text-base">
-            Начать сейчас
+          <Button
+            onClick={() => scrollToSection("map")}
+            className="glass-button text-base rounded-full bg-white/5 border border-white/20 hover:bg-white/15 hover:border-white/30 transition-all duration-300 text-white px-8 py-6 md:text-base"
+          >
+            Открыть афишу
           </Button>
         </div>
       </section>
@@ -701,59 +771,44 @@ export default function VerdantPage() {
       <footer className="relative px-4 border-t border-white/5 py-8">
         <div className="max-w-[1120px] w-full mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-12 md:gap-8 mb-12">
-            {/* Brand Column */}
             <div className="flex flex-col gap-4">
-              <div className="text-lg font-semibold font-mono">VERDANT</div>
+              <div className="text-lg font-semibold font-mono">GLAMDATE</div>
               <p className="text-xs text-[#A7ABB3] leading-relaxed">
-                Защита лесов по всему миру с помощью мониторинга в реальном времени и ИИ-технологий.
+                Афиша бьюти-мероприятий для мастеров индустрии красоты по всей стране.
               </p>
               <div className="flex items-center gap-4 mt-2">
-                <a
-                  href="#"
-                  className="text-[#A7ABB3] hover:text-[#F2F3F5] transition-colors"
-                  aria-label="X (Twitter)"
-                >
+                <a href="#" className="text-[#A7ABB3] hover:text-[#F2F3F5] transition-colors" aria-label="X (Twitter)">
                   <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
                   </svg>
                 </a>
-                <a
-                  href="#"
-                  className="text-[#A7ABB3] hover:text-[#F2F3F5] transition-colors"
-                  aria-label="YouTube"
-                >
+                <a href="#" className="text-[#A7ABB3] hover:text-[#F2F3F5] transition-colors" aria-label="YouTube">
                   <Youtube className="w-4 h-4" />
                 </a>
-                <a
-                  href="#"
-                  className="text-[#A7ABB3] hover:text-[#F2F3F5] transition-colors"
-                  aria-label="Instagram"
-                >
+                <a href="#" className="text-[#A7ABB3] hover:text-[#F2F3F5] transition-colors" aria-label="Instagram">
                   <Instagram className="w-4 h-4" />
                 </a>
               </div>
             </div>
 
-            {/* Product Menu */}
             <div className="flex flex-col gap-4">
-              <div className="text-xs uppercase tracking-[0.15em] text-[#F2F3F5] font-semibold mb-2">Продукт</div>
+              <div className="text-xs uppercase tracking-[0.15em] text-[#F2F3F5] font-semibold mb-2">Афиша</div>
               <div className="flex flex-col gap-3">
-                <a href="#" className="text-sm text-[#A7ABB3] hover:text-[#F2F3F5] transition-colors">
-                  Возможности
+                <a href="#map" className="text-sm text-[#A7ABB3] hover:text-[#F2F3F5] transition-colors">
+                  Мероприятия
                 </a>
-                <a href="#" className="text-sm text-[#A7ABB3] hover:text-[#F2F3F5] transition-colors">
-                  Тарифы
+                <a href="#narrative" className="text-sm text-[#A7ABB3] hover:text-[#F2F3F5] transition-colors">
+                  Форматы
                 </a>
-                <a href="#" className="text-sm text-[#A7ABB3] hover:text-[#F2F3F5] transition-colors">
-                  Документация
+                <a href="#metrics" className="text-sm text-[#A7ABB3] hover:text-[#F2F3F5] transition-colors">
+                  О нас
                 </a>
-                <a href="#" className="text-sm text-[#A7ABB3] hover:text-[#F2F3F5] transition-colors">
-                  API
+                <a href="#faq" className="text-sm text-[#A7ABB3] hover:text-[#F2F3F5] transition-colors">
+                  Вопросы
                 </a>
               </div>
             </div>
 
-            {/* Company Menu */}
             <div className="flex flex-col gap-4">
               <div className="text-xs uppercase tracking-[0.15em] text-[#F2F3F5] font-semibold mb-2">Компания</div>
               <div className="flex flex-col gap-3">
@@ -764,7 +819,7 @@ export default function VerdantPage() {
                   Блог
                 </a>
                 <a href="#" className="text-sm text-[#A7ABB3] hover:text-[#F2F3F5] transition-colors">
-                  Карьера
+                  Организаторам
                 </a>
                 <a href="#" className="text-sm text-[#A7ABB3] hover:text-[#F2F3F5] transition-colors">
                   Контакты
@@ -772,26 +827,24 @@ export default function VerdantPage() {
               </div>
             </div>
 
-            {/* Newsletter Subscription */}
             <div className="flex flex-col gap-4">
               <div className="text-xs uppercase tracking-[0.15em] text-[#F2F3F5] font-semibold mb-2">Рассылка</div>
-              <p className="text-xs text-[#A7ABB3] mb-3">Получайте новости об экологических инициативах.</p>
+              <p className="text-xs text-[#A7ABB3] mb-3">Получайте анонсы новых бьюти-мероприятий первыми.</p>
               <div className="flex flex-col gap-2">
                 <input
                   type="email"
                   placeholder="Введите email"
                   className="px-4 py-2 bg-white/5 border border-white/10 rounded-lg text-xs text-[#F2F3F5] placeholder-[#A7ABB3] focus:outline-none focus:border-pink-400/50 focus:ring-1 focus:ring-pink-400/20 transition-all"
                 />
-                <button className="px-4 py-2 border rounded-lg text-xs font-medium hover:bg-pink-500/30 hover:border-pink-500/50 transition-all bg-green-800 border-green-700 text-white">
+                <button className="px-4 py-2 border rounded-lg text-xs font-medium hover:bg-pink-500/30 hover:border-pink-500/50 transition-all bg-pink-800 border-pink-700 text-white">
                   Подписаться
                 </button>
               </div>
             </div>
           </div>
 
-          {/* Footer Bottom */}
           <div className="border-t border-white/5 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-[#A7ABB3]">
-            <div>2025 VERDANT. Все права защищены.</div>
+            <div>2026 GLAMDATE. Все права защищены.</div>
             <div className="flex gap-6">
               <a href="#" className="hover:text-[#F2F3F5] transition-colors">
                 Политика конфиденциальности
