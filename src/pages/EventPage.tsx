@@ -47,12 +47,16 @@ export default function EventPage() {
       <section
         className="relative min-h-[60vh] flex items-end px-4 pt-32 pb-16 overflow-hidden"
         style={{
-          backgroundImage: `url('/hero-landscape.png')`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
+          background: "#0B0C0F",
+          backgroundImage: `
+            radial-gradient(ellipse 100% 80% at 50% 0%, rgba(217,167,199,0.2) 0%, transparent 60%),
+            linear-gradient(135deg, rgba(255,255,255,0.02) 1px, transparent 1px),
+            linear-gradient(45deg, rgba(255,255,255,0.02) 1px, transparent 1px)
+          `,
+          backgroundSize: "100% 100%, 60px 60px, 60px 60px",
         }}
       >
-        <div className="absolute inset-0 bg-gradient-to-t from-[#0B0C0F] via-[#0B0C0F]/70 to-[#0B0C0F]/40 pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#0B0C0F] via-[#0B0C0F]/50 to-transparent pointer-events-none" />
         <div className="max-w-[900px] w-full mx-auto relative z-10">
           <Link
             to="/"

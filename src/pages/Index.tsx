@@ -256,19 +256,19 @@ export default function GlamdatePage() {
         ref={heroRef}
         className={`relative min-h-screen flex flex-col items-center justify-center px-4 pt-24 pb-16 md:pt-32 md:pb-24 transition-all duration-[1200ms] ease-[cubic-bezier(0.16,1,0.3,1)] overflow-hidden ${isLoaded ? "scale-100 opacity-100" : "scale-[1.03] opacity-0"}`}
         style={{
-          backgroundImage: `url('/hero-landscape.png')`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          backgroundAttachment: "fixed",
+          background: "#0B0C0F",
         }}
       >
         <div
           className="absolute inset-0 pointer-events-none"
           style={{
-            transform: `translateY(${scrollY * 0.5}px)`,
-            backgroundImage: `url('/hero-landscape.png')`,
-            backgroundSize: "cover",
-            backgroundPosition: "center",
+            transform: `translateY(${scrollY * 0.3}px)`,
+            backgroundImage: `
+              radial-gradient(ellipse 80% 60% at 50% 0%, rgba(217,167,199,0.18) 0%, transparent 70%),
+              linear-gradient(135deg, rgba(255,255,255,0.025) 1px, transparent 1px),
+              linear-gradient(45deg, rgba(255,255,255,0.025) 1px, transparent 1px)
+            `,
+            backgroundSize: "100% 100%, 60px 60px, 60px 60px",
           }}
         />
 
@@ -739,13 +739,27 @@ export default function GlamdatePage() {
         id="cta"
         className="relative py-24 md:py-40 px-4 animate-on-scroll overflow-hidden pt-0"
         style={{
-          backgroundImage: `url('/earth-cta.png')`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          backgroundAttachment: "fixed",
+          backgroundImage: `
+            radial-gradient(ellipse 70% 70% at 50% 100%, rgba(217,167,199,0.22) 0%, transparent 65%),
+            radial-gradient(circle at 20% 80%, rgba(255,252,220,0.08) 0%, transparent 40%),
+            radial-gradient(circle 1px at center, rgba(255,255,255,0.12) 1px, transparent 0)
+          `,
+          backgroundSize: "100% 100%, 100% 100%, 28px 28px",
+          background: "#0B0C0F",
         }}
       >
-        <div className="absolute inset-0 bg-gradient-to-b from-[#0B0C0F] via-[#0B0C0F]/60 to-transparent pointer-events-none" />
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            backgroundImage: `
+              radial-gradient(ellipse 70% 70% at 50% 100%, rgba(217,167,199,0.22) 0%, transparent 65%),
+              radial-gradient(circle at 20% 80%, rgba(255,252,220,0.08) 0%, transparent 40%),
+              radial-gradient(circle 1px at center, rgba(255,255,255,0.12) 1px, transparent 0)
+            `,
+            backgroundSize: "100% 100%, 100% 100%, 28px 28px",
+          }}
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#0B0C0F] via-transparent to-[#0B0C0F]/40 pointer-events-none" />
         <div className="max-w-[800px] w-full mx-auto text-center relative z-10">
           <div className="inline-flex items-center gap-2 glass-pill px-4 py-2 rounded-full mb-8 text-xs md:text-sm text-[#A7ABB3]">
             <span className="w-1.5 h-1.5 rounded-full bg-pink-400 animate-pulse" />
